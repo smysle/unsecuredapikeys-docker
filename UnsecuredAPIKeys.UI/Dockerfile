@@ -6,9 +6,9 @@
 FROM node:20-alpine AS deps
 WORKDIR /usr/src/app
 
-# Install dependencies based on lock file for better caching
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+# Install dependencies
+COPY package.json ./
+RUN npm install --omit=dev
 
 # Build stage
 FROM node:20-alpine AS builder
