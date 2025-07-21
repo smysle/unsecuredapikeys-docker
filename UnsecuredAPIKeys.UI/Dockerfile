@@ -7,7 +7,7 @@ FROM node:20-alpine AS deps
 WORKDIR /usr/src/app
 
 # Install dependencies based on lock file for better caching
-COPY UnsecuredAPIKeys.UI/package.json UnsecuredAPIKeys.UI/package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
 # Build stage
@@ -15,7 +15,7 @@ FROM node:20-alpine AS builder
 WORKDIR /usr/src/app
 ENV NODE_ENV=production
 COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY UnsecuredAPIKeys.UI/ ./
+COPY . .
 RUN npm run build
 
 # Production runtime
