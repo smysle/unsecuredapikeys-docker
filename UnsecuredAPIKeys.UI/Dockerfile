@@ -6,9 +6,9 @@
 FROM node:20-alpine AS deps
 WORKDIR /usr/src/app
 
-# Install dependencies
+# Install dependencies (ignore peer conflicts)
 COPY package.json ./
-RUN npm install --omit=dev
+RUN npm install --omit=dev --legacy-peer-deps
 
 # Build stage
 FROM node:20-alpine AS builder
